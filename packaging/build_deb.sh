@@ -2,7 +2,7 @@
 set -e
 
 APP_NAME="turbodl"
-VERSION="1.0.1"
+VERSION="1.0.2"
 BUILD_DIR="build/deb"
 DEB_DIR="${BUILD_DIR}/${APP_NAME}_${VERSION}_all"
 

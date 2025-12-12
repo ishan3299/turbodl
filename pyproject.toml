@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "turbodl"
-version = "1.0.1"
+version = "1.0.2"
 description = "Advanced IDM-like GUI download manager for Linux"
 readme = "README.md"
 authors = [

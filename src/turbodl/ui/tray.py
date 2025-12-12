@@ -57,3 +57,7 @@ class TrayManager:
 
     def quit_app(self):
         self.app.quit()
+        
+    def cleanup(self):
+        self.tray_icon.hide()
+        self.tray_icon = None

@@ -53,11 +53,35 @@ def main():
     
     logger.info("Application initialized.")
     
-    exit_code = app.exec()
+    try:
+        exit_code = app.exec()
+    except KeyboardInterrupt:
+        logger.info("KeyboardInterrupt received.")
+        exit_code = 0
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        exit_code = 1
+    finally:
+        logger.info("Shutting down...")
+        try:
+            window.cleanup()
+            window.close()
+        except:
+            pass
+            
+        try:
+            tray.cleanup()
+        except:
+            pass
+            
+        engine.stop_daemon()
+        
+        # Explicitly delete Qt objects to ensure proper C++ destruction order
+        del window
+        del tray
+        del engine
+        del app
     
-    logger.info("Shutting down...")
-    window.cleanup()
-    engine.stop_daemon()
     sys.exit(exit_code)
 
 if __name__ == "__main__":
