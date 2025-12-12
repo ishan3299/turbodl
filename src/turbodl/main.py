@@ -53,35 +53,42 @@ def main():
     
     logger.info("Application initialized.")
     
+    # Run Event Loop
     try:
         exit_code = app.exec()
     except KeyboardInterrupt:
-        logger.info("KeyboardInterrupt received.")
+        logger.info("KeyboardInterrupt received from console. Quitting...")
+        app.quit()
         exit_code = 0
     except Exception as e:
-        logger.error(f"Unexpected error: {e}")
+        logger.error(f"Critical error: {e}")
         exit_code = 1
     finally:
-        logger.info("Shutting down...")
-        try:
-            window.cleanup()
-            window.close()
-        except:
-            pass
-            
-        try:
-            tray.cleanup()
-        except:
-            pass
-            
-        engine.stop_daemon()
+        logger.info("Cleaning up resources...")
         
-        # Explicitly delete Qt objects to ensure proper C++ destruction order
-        del window
-        del tray
-        del engine
-        del app
-    
+        # Stop UI updates first
+        if window:
+            try:
+                window.cleanup()
+            except:
+                pass
+        
+        # Hide Tray
+        if tray:
+            try:
+                tray.cleanup()
+            except:
+                pass
+        
+        # Stop Backend
+        if engine:
+            try:
+                engine.stop_daemon()
+            except:
+                pass
+        
+        logger.info("Shutdown complete.")
+
     sys.exit(exit_code)
 
 if __name__ == "__main__":
