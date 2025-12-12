@@ -14,3 +14,4 @@ dist/
 .vscode/
 *.deb
 packaging/build/
+*.log
