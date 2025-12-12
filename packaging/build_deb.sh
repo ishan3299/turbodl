@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# Resolve the directory where the script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Move to the project root (assuming script is in packaging/)
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_ROOT"
+
 APP_NAME="turbodl"
 VERSION="1.0.3"
 BUILD_DIR="build/deb"
