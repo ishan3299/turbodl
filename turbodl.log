@@ -1,0 +1,4 @@
+2025-12-12 23:24:54,453 INFO Starting TurboDL...
+2025-12-12 23:24:54,524 INFO Starting aria2c daemon: aria2c --enable-rpc --rpc-listen-all=false --rpc-listen-port=6800 --rpc-secret=turbodl_secret --max-connection-per-server=16 --min-split-size=1M --daemon=false
+2025-12-12 23:24:55,525 INFO Connected to aria2c RPC successfully.
+2025-12-12 23:24:55,560 INFO Application initialized.

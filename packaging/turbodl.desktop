@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=TurboDL
+Comment=Advanced Download Manager
+Exec=/usr/bin/turbodl
+Icon=turbodl
+Terminal=false
+Type=Application
+Categories=Network;FileTransfer;
+StartupNotify=true

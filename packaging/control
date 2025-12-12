@@ -1,0 +1,10 @@
+Package: turbodl
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: all
+Depends: python3, python3-pyqt6, aria2, python3-requests, python3-psutil
+Maintainer: Ishan Patel <ishan.patel1998@gmail.com>
+Description: Advanced Download Manager
+ TurboDL is a high-performance download manager for Linux
+ featuring advanced auto-tuning technology and aria2c backend.
