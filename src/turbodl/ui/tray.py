@@ -56,5 +56,4 @@ class TrayManager:
             self.toggle_window()
 
     def quit_app(self):
-        self.main_window.engine.stop_daemon()
         self.app.quit()

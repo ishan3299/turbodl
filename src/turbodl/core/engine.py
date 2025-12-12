@@ -50,6 +50,7 @@ class DownloadEngine:
             return False
 
     def stop_daemon(self):
+        self.aria2 = None # Prevent further RPC calls immediately
         if self.aria2_process:
             logger.info("Stopping aria2c daemon...")
             self.aria2_process.terminate()

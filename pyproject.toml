@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "turbodl"
+version = "1.0.1"
+description = "Advanced IDM-like GUI download manager for Linux"
+readme = "README.md"
+authors = [
+  { name = "Ishan Patel", email = "ishan.patel1998@gmail.com" },
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+    "PyQt6",
+    "aria2p",
+    "requests",
+    "psutil",
+]
+requires-python = ">=3.8"
+
+[project.scripts]
+turbodl = "turbodl.main:main"
+
+[project.urls]
+"Homepage" = "https://github.com/ishan3299/turbodl"
+"Bug Tracker" = "https://github.com/ishan3299/turbodl/issues"

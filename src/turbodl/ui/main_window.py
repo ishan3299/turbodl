@@ -103,3 +103,6 @@ class MainWindow(QMainWindow):
 
     def set_tray(self, tray_icon):
         self.tray_icon = tray_icon
+        
+    def cleanup(self):
+        self.timer.stop()
