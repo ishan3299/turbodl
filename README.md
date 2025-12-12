@@ -13,8 +13,8 @@ TurboDL is an advanced, IDM-style download manager for Linux, designed for high 
 ### Method 1: Installing the .deb (Recommended)
 Download the latest release (`.deb` file) from the [Releases Page](https://github.com/ishan3299/turbodl/releases).
 ```bash
-# Example for v1.0.5
-sudo dpkg -i turbodl_1.0.5_all.deb
+# Example for v1.0.6
+sudo dpkg -i turbodl_1.0.6_all.deb
 sudo apt-get install -f  # Fix dependencies if needed
 ```
 

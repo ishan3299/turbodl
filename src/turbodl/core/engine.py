@@ -97,6 +97,27 @@ class DownloadEngine:
         if self.aria2:
             self.aria2.unpause_all()
 
+    def pause_download(self, gid):
+        if self.aria2:
+            try:
+                self.aria2.pause(gid)
+            except Exception as e:
+                logger.error(f"Failed to pause {gid}: {e}")
+
+    def resume_download(self, gid):
+        if self.aria2:
+            try:
+                self.aria2.unpause(gid)
+            except Exception as e:
+                logger.error(f"Failed to resume {gid}: {e}")
+
+    def remove_download(self, gid):
+        if self.aria2:
+            try:
+                self.aria2.remove(gid)
+            except Exception as e:
+                logger.error(f"Failed to remove {gid}: {e}")
+                
     def purge_completed(self):
         if self.aria2:
             self.aria2.purge()

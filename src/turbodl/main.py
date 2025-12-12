@@ -10,7 +10,15 @@ from turbodl.utils.logger import logger
 def main():
     logger.info("Starting TurboDL...")
     app = QApplication(sys.argv)
+    app.setApplicationName("TurboDL")
+    app.setDesktopFileName("turbodl")
     app.setQuitOnLastWindowClosed(False) # Important for tray support
+    
+    # Set Window Icon
+    import os
+    icon_path = os.path.join(os.path.dirname(__file__), "resources", "icon.png")
+    from PyQt6.QtGui import QIcon
+    app.setWindowIcon(QIcon(icon_path))
     
     # Initialize Engine
     engine = DownloadEngine()

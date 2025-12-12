@@ -1,11 +1,20 @@
-from PyQt6.QtWidgets import QSystemTrayIcon, QMenu
+import sys
+import os
+from PyQt6.QtWidgets import QApplication, QSystemTrayIcon, QMenu
 from PyQt6.QtGui import QIcon, QAction
+
+# Helper to get resource path
+def get_resource_path(relative_path):
+    base_path = os.path.dirname(__file__)
+    # Go up from ui/ to turbodl/ then to resources/
+    return os.path.join(base_path, "..", "resources", relative_path)
 
 class TrayManager:
     def __init__(self, app, main_window):
         self.app = app
         self.main_window = main_window
-        self.tray_icon = QSystemTrayIcon(QIcon("resources/icon.png"), self.app) # Needs icon
+        icon_path = get_resource_path("icon.png")
+        self.tray_icon = QSystemTrayIcon(QIcon(icon_path), self.app)
         self.tray_icon.setToolTip("TurboDL")
         
         # Tray Menu

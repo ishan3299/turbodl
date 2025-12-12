@@ -35,6 +35,9 @@ class MainWindow(QMainWindow):
         self.table.setColumnCount(6)
         self.table.setHorizontalHeaderLabels(["GID", "Name", "Status", "Size", "Speed", "Progress"])
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        # Enable context menu
+        self.table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.table.customContextMenuRequested.connect(self.show_context_menu)
         layout.addWidget(self.table)
         
         # Status Bar
@@ -67,7 +70,15 @@ class MainWindow(QMainWindow):
             self.table.setItem(row, 1, QTableWidgetItem(str(name)))
             
             # Status
-            self.table.setItem(row, 2, QTableWidgetItem(d.status))
+            status_text = d.status
+            # If active, show connection count for "Turbo" effect
+            if d.status == "active":
+                try:
+                    num_conns = d.connections
+                    status_text = f"Downloading ({num_conns} conn)"
+                except:
+                    pass
+            self.table.setItem(row, 2, QTableWidgetItem(status_text))
             
             # Size
             size_str = f"{d.completed_length_string()}/{d.total_length_string()}"
@@ -106,3 +117,33 @@ class MainWindow(QMainWindow):
         
     def cleanup(self):
         self.timer.stop()
+
+    def show_context_menu(self, position):
+        rows = sorted(set(index.row() for index in self.table.selectedIndexes()))
+        if not rows:
+            return
+            
+        row = rows[0]
+        gid_item = self.table.item(row, 0)
+        if not gid_item: return
+        gid = gid_item.text()
+        
+        status_item = self.table.item(row, 2)
+        status = status_item.text() if status_item else ""
+        
+        menu = QMenu()
+        
+        if "paused" in status.lower():
+            action_resume = QAction("Resume", self)
+            action_resume.triggered.connect(lambda: self.engine.resume_download(gid))
+            menu.addAction(action_resume)
+        elif "active" in status.lower() or "downloading" in status.lower():
+            action_pause = QAction("Pause", self)
+            action_pause.triggered.connect(lambda: self.engine.pause_download(gid))
+            menu.addAction(action_pause)
+            
+        action_remove = QAction("Remove", self)
+        action_remove.triggered.connect(lambda: self.engine.remove_download(gid))
+        menu.addAction(action_remove)
+        
+        menu.exec(self.table.viewport().mapToGlobal(position))
