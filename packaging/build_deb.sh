@@ -8,7 +8,8 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 cd "$PROJECT_ROOT"
 
 APP_NAME="turbodl"
-VERSION="1.0.4"
+# Extract version from control file to ensure sync
+VERSION=$(grep "Version:" packaging/control | awk '{print $2}')
 BUILD_DIR="build/deb"
 DEB_DIR="${BUILD_DIR}/${APP_NAME}_${VERSION}_all"
 

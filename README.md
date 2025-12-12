@@ -10,11 +10,12 @@ TurboDL is an advanced, IDM-style download manager for Linux, designed for high 
 
 ## Installation
 
-### Dependencies
-TurboDL requires `aria2c` to be installed on your system:
+### Method 1: Installing the .deb (Recommended)
+Download the latest release (`.deb` file) from the [Releases Page](https://github.com/ishan3299/turbodl/releases).
 ```bash
-sudo apt update
-sudo apt install aria2
+# Example for v1.0.5
+sudo dpkg -i turbodl_1.0.5_all.deb
+sudo apt-get install -f  # Fix dependencies if needed
 ```
 
 ### Running from Source
