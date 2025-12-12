@@ -8,7 +8,7 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 cd "$PROJECT_ROOT"
 
 APP_NAME="turbodl"
-VERSION="1.0.3"
+VERSION="1.0.4"
 BUILD_DIR="build/deb"
 DEB_DIR="${BUILD_DIR}/${APP_NAME}_${VERSION}_all"
 
@@ -23,7 +23,14 @@ mkdir -p "${DEB_DIR}/DEBIAN"
 # Copy Source
 cp -r src/* "${DEB_DIR}/usr/lib/${APP_NAME}/"
 cp main.py "${DEB_DIR}/usr/lib/${APP_NAME}/"
-cp requirements.txt "${DEB_DIR}/usr/lib/${APP_NAME}/"
+
+# Install Dependencies Locally (Only those not in apt)
+echo "Bundling dependencies..."
+# We only vendor aria2p because PyQt6, requests, psutil are installed via apt dependencies
+pip install aria2p --target "${DEB_DIR}/usr/lib/${APP_NAME}/libs" --ignore-installed
+# Clean up junk from libs
+find "${DEB_DIR}/usr/lib/${APP_NAME}/libs" -name "*.dist-info" -exec rm -rf {} +
+find "${DEB_DIR}/usr/lib/${APP_NAME}/libs" -name "__pycache__" -exec rm -rf {} +
 
 # Copy Control
 cp packaging/control "${DEB_DIR}/DEBIAN/"
